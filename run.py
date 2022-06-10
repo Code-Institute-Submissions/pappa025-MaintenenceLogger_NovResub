@@ -78,7 +78,7 @@ def log_to_sheet():
     price = float(data[-1]) * 160
     data.append(price)
     data_worksheet = SHEET.worksheet("flights")
-    data_worksheet.append_row(data)    
+    data_worksheet.append_row(data)
     print(f"If the hourly rate is €160, the cost of this flight was: €{price}\n")
     print("Adding the inputted informations to the electronic Flight Log...\n")    
     print("Thank you to use this program!\n")
@@ -119,12 +119,23 @@ def takeoffs():
 def registration():
     """
     Logging aircraft registration as part of Log a Flight journey
-    !!!To be implemented to check if its a format, go back to main menu if hitting 0 
+    Check if its a 3 letters format, go back to main menu if hitting `
     """
     print("")
-    reg = input("Aircraft registration (3 letters): EI-")
-    data.append(reg)
-    takeoffs()
+    while True:
+        reg = input("Aircraft registration (3 letters): EI-")
+        if reg == "`":
+            print("")
+            print("Logging process cancelled, back to main menu!\n")
+
+            menu()
+        if len(reg) != 3 or not reg.isalpha():
+            print("")
+            print("Registration should be  three letters Only!\n")
+            else:
+            data.append(reg.upper())123
+            takeoffs()
+            break
 
 def arrival():
     """
