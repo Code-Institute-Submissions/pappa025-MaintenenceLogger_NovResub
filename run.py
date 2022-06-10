@@ -132,8 +132,8 @@ def registration():
         if len(reg) != 3 or not reg.isalpha():
             print("")
             print("Registration should be  three letters Only!\n")
-            else:
-            data.append(reg.upper())123
+        else:
+            data.append(reg.upper())
             takeoffs()
             break
 
@@ -158,7 +158,7 @@ def arrival():
 def departure():
     """
     Logging Departure Airfield as part of Log a Flight journey
-    !!!To be implemented to check if its a format, go back to main menu if hitting 0 
+    Check if its a 4 letters format, go back to main menu if hitting ` 
     """
     print("")    
     print("Departure Airfield")
@@ -167,9 +167,19 @@ def departure():
     print("  </   ")
     print("________")
     print("")
-    dep = input("Departure Airfield - Enter ICAO code like (EIDW, EIWT, EICK): ")
-    data.append(dep)
-    arrival()
+    while True:
+        dep = input("Departure Airfield - Enter ICAO code like (EIDW, EIWT, EICK): ")
+        if dep == "`":
+            print("")
+            print("Logging process cancelled, back to main menu!\n")
+            menu()
+        if len(dep) != 4 or not dep.isalpha():
+            print("")
+            print("Departure A/P should be four letters Only!\n")
+        else:
+            data.append(dep.upper())
+            arrival()
+            break
 
 
 
