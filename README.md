@@ -1,31 +1,65 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Maintenance Logger
 
-Welcome Adam Papp,
+### Milestone Project 3 - Python
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
+My third Milestone Project is a simple Flight Logger program for a Flight Club. Despite its mandatory to log your flights on paper, many  pilots and clubs have their record in electronic form. With this handy little program you can log your flight to a linked Google Sheet which can be accessable for other Club Members to track the engine time left in the Aircraft and have a backup of your records as well.
 
-## Reminders
 
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
+## UX
 
-## Creating the Heroku app
+When you start the program below the Welcome text appears the Menu. Here we can choose of the following options:
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+Information of navigation - few words about the keys needed to run the program
 
-1. `heroku/python`
-2. `heroku/nodejs`
+Check last Engine Maintenance - fetching data from Google Sheets about last service time
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+Check the coming Engine Maintenance - next service if the engine
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+Log a Flight - step by step guide to log your recent flight and save it to Google Sheets
 
-Connect your GitHub repository and deploy as normal.
+Exit option
 
-## Constraints
+## Features
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+The following is a summary of the features already in place and those that could perhaps be implemented in the future.
 
------
-Happy coding!
+### Existing Features
+
+Information and Service time checks are simple features with data obtained from Google Sheets athen we can choose another option in the Menu.
+
+If we start the Log a Flight Jorney we are prompted to input the details of our most recent flight
+
+Deaprting Airport: asked the 4 letters ICAO code of depoarture Airport, program checking if we key in 4 characters. Answer is saved as all capital letters to Google Sheets. If we press ` anytime at different stages of Logging we will be back to Main Menu without saving the flight.
+
+Arrival Airport: asked again the 4 letter ICAO code and save the details similarly as previous section.
+
+Registration: user prompted to key in the last 3 letters of Aircraft Registration. EI (as civil registration in Ireland) is prepopulated. Program checks if 3 letters were keyed in.
+
+Number of Takeoffs and Landings: this is the same number (in most cases), so we are just asked once to key in a number. Program checking if the entry is a whole number.
+
+Flight-time: Prompted to log your flight-time in hours (like 1.3, 0.5 etc..)
+
+Saving to sheet phase: out of logged hours program calculates a theoretical flight cost based on an hourly rate of €160 and save the imputted datas to Google Sheets.
+
+### Features to Implement
+
+Theoretically endless the improvement possibilities: if needed we can calculate time left in engine (hours left to next service), can make more detailed sheet with type of hour we flew (IFR or VFR) or we can add pilot function time as well (Solo, Dual etc). The code presented can be easily expanded for future needs.
+
+## Testing
+
+Page has been tested with pep8online checker and no errors were found.
+
+Also long hours were spent to find bugs and experiment with different solutions for character checkings, logical orders of processes resulting a faily steady software.
+
+### Technologies Used
+
+- [python]( https://www.python.org/)
+
+## Deployment
+
+Deployment and source control was entirely done via GitHub. The repository can be found here:
+
+Repo: https://github.com/pappa025/How-to-do-your-ppl
+
+
+

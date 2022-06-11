@@ -31,7 +31,7 @@ def menu():
     print("[3] Option 3 - Next engine maintenence due")
     print("[4] Option 4 - Log a flight")
     print("[0] Exit\n")
-    option = int(input("Enter your option: "))
+    option = int(input("Enter your option: \n"))
     while option != 0:
         if option == 1:
             # option 1 - instructions
@@ -51,7 +51,7 @@ def menu():
             print("Invalid option.")
         print()
         menu()
-        option = int(input("Entert your option: "))
+        option = int(input("Entert your option: \n"))
     print("Thanks for using this program!")
 
 
@@ -112,14 +112,11 @@ def flight_time():
     """
     print("")
     while True:
-        time = input("Flight time in hours (0.3, 1.4, etc..): ")
+        time = input("Flight time in hours (0.3, 1.4, etc..): \n")
         if time == "`":
             print("")
             print("Logging process cancelled, back to main menu!\n")
             menu()
-        if type(time) == float:
-            print("")
-            print("Your entry is not valid!\n")
         else:
             data.append(time)
             log_to_sheet()
@@ -134,7 +131,7 @@ def toff_lndgs():
     """
     print("")
     while True:
-        toffldg = input("Number of Takeoffs: ")
+        toffldg = input("Number of Takeoffs: \n")
         if toffldg == "`":
             print("")
             print("Logging process cancelled, back to main menu!\n")
@@ -161,7 +158,7 @@ def registration():
     """
     print("")
     while True:
-        reg = input("Aircraft registration (3 letters): EI-")
+        reg = input("Aircraft registration (3 letters): EI-\n")
         if reg == "`":
             print("")
             print("Logging process cancelled, back to main menu!\n")
@@ -191,7 +188,7 @@ def arrival():
     print("________")
     print("")
     while True:
-        arr = input("Arrival Airfield - Enter ICAO code like (EIDW, EIWT): ")
+        arr = input("Arrival Airfield - Enter ICAO code like (EIDW, EIWT): \n")
         if arr == "`":
             print("")
             print("Logging process cancelled, back to main menu!\n")
@@ -220,7 +217,7 @@ def departure():
     print("________")
     print("")
     while True:
-        dep = input("Departure Airfield - Enter ICAO code like (EIDW, EIWT): ")
+        dep = input("Departure Airfield - Enter ICAO code like (EIDW, EIWT): \n")
         if dep == "`":
             print("")
             print("Logging process cancelled, back to main menu!\n")
