@@ -28,7 +28,7 @@ def menu():
     print("[1] Option 1 - Instructions")
     print("[2] Option 2 - Last engine maintenence time")
     print("[3] Option 3 - Next engine maintenence due")
-    print("[4] Option 5 - Log a flight")
+    print("[4] Option 4 - Log a flight")
     print("[0] Exit\n")
     option = int(input("Enter your option: "))
     while option != 0:
@@ -52,6 +52,7 @@ def menu():
         menu()
         option = int(input("Entert your option: "))
     print("Thanks for using this program!")
+
 
 def instructions():
     """
@@ -102,18 +103,30 @@ def log_to_sheet():
 def flight_time():
     """
     Logging flight time as part of Log a Flight journey
-    !!!To be implemented to check if its a right format and go back to main menu if hitting 0
+    !!!To be implemented to check if its a float and go 
     """
     print("")
-    time = input("Flight time in hours (0.3, 1.4, etc..): ")
-    data.append(time)
-    log_to_sheet()
+    while True:
+        time = input("Flight time in hours (0.3, 1.4, etc..): ")
+        if time == "`":
+            print("")
+            print("Logging process cancelled, back to main menu!\n")
+            menu()
+        if type(time) == float:
+            print("")
+            print("Your entry is not valid!\n")
+        else:
+            data.append(time)
+            log_to_sheet()
+            break
+        
+
 
 def toff_lndgs():
     """
     Logging takeoffs as part of Log a Flight journey
     Cheking if its a integer, go back to main menu if hitting ` 
-    Logging in Google Sheets the same number of Landigs as well
+    Logging in Google Sheets the same number of Landigs as Takeoffs
     """
     print("")
     while True:
@@ -122,7 +135,6 @@ def toff_lndgs():
             print("")
             print("Logging process cancelled, back to main menu!\n")
             menu()
-            break
         if not toffldg.isdigit():
             print("")
             print("Your entry is not valid!\n")
@@ -207,6 +219,7 @@ def departure():
             print("")
             print("Logging process cancelled, back to main menu!\n")
             menu()
+            break
         if len(dep) != 4 or not dep.isalpha():
             print("")
             print("Departure A/P should be four letters Only!\n")
@@ -214,7 +227,5 @@ def departure():
             data.append(dep.upper())
             arrival()
             break
-
-
 
 menu()
