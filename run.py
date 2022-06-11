@@ -28,9 +28,30 @@ def menu():
     print("[1] Option 1 - Instructions")
     print("[2] Option 2 - Last engine maintenence time")
     print("[3] Option 3 - Next engine maintenence due")
-    print("[4] Option 4 - Calculate time left in Engine")
-    print("[5] Option 5 - Log a flight")
-    print("[0] Exit")
+    print("[4] Option 5 - Log a flight")
+    print("[0] Exit\n")
+    option = int(input("Enter your option: "))
+    while option != 0:
+        if option == 1:
+            #option 1 - instructions
+            instructions()
+        elif option == 2:
+            #option 2 - last Engine maintenance time
+            last_maint()
+        elif option == 3:
+            #option 3 - next Engine maintenance due
+            next_maint()
+        elif option == 4:
+            #option 4 - log a flight
+            departure()
+            break
+        else:
+            print("")
+            print("Invalid option.")
+        print()
+        menu()
+        option = int(input("Entert your option: "))
+    print("Thanks for using this program!")
 
 def instructions():
     """
@@ -39,6 +60,7 @@ def instructions():
     print("")
     print("You can choose the desired option from the main menu.") 
     print("If you choose 0, the program will exit!")
+    print("Press ` during Flight Logging to return to Main Menu!")
 
 maintenance=[]
 maintenance=SHEET.worksheet("maintenance").get_all_values()
@@ -60,17 +82,10 @@ def next_maint():
 
 data = []
 
-def engine_time_left():
-    """
-    !!!Need to extract all colum of flight times, then subtract from maint row differecnce!!!
-    """
-    time_left = float(maint_row[1])-float(maint_row[0])
-    print(f"Calculating time left in engine: ... {time_left}\n")
-    menu()
-
 def log_to_sheet():
     """
-    Calculating price of flight out of entered flight time, and ogging the cumulated flight log data back to Google Sheets
+    Calculating price of flight out of entered flight time
+    Logging data back to Google Sheets
     At the End of the Function option takes back to Main Menu
     Last part of the Log a Flight option journey
     """
@@ -90,36 +105,42 @@ def flight_time():
     !!!To be implemented to check if its a right format and go back to main menu if hitting 0
     """
     print("")
-    time = input("Flight time in hours (0.3, 1.4, etc..):")
+    time = input("Flight time in hours (0.3, 1.4, etc..): ")
     data.append(time)
     log_to_sheet()
 
-def landings():
-    """
-    Logging landings as part of Log a Flight journey
-    !!!To be implemented to check if its a format, cant be less or more than takeoff and go back to main menu if hitting 0 
-    !!!Option to make it together with Takeoffs!
-    """
-    print("")
-    ldgs = input("Number of Landings:")
-    data.append(ldgs)
-    flight_time()
-
-def takeoffs():
+def toff_lndgs():
     """
     Logging takeoffs as part of Log a Flight journey
-    !!!To be implemented to check if its a format, go back to main menu if hitting 0 
-    !!!Option to make it together with Landings!
+    Cheking if its a integer, go back to main menu if hitting ` 
+    Logging in Google Sheets the same number of Landigs as well
     """
     print("")
-    toffs = input("Number of Takeoffs:")
-    data.append(toffs)
-    landings()
+    while True:
+        toffldg = input("Number of Takeoffs: ")
+        if toffldg == "`":
+            print("")
+            print("Logging process cancelled, back to main menu!\n")
+            menu()
+            break
+        if not toffldg.isdigit():
+            print("")
+            print("Your entry is not valid!\n")
+        else:
+            data.append(toffldg)
+            print("")
+            print("Logging same number of Landings as well...\n")
+            data.append(toffldg)
+            print("...Done!...\n")
+            flight_time()
+            break
 
 def registration():
     """
     Logging aircraft registration as part of Log a Flight journey
     Check if its a 3 letters format, go back to main menu if hitting `
+    Input not case sensitive, but uploads as Capital letters 
+    for data quality reason!
     """
     print("")
     while True:
@@ -127,20 +148,21 @@ def registration():
         if reg == "`":
             print("")
             print("Logging process cancelled, back to main menu!\n")
-
             menu()
         if len(reg) != 3 or not reg.isalpha():
             print("")
             print("Registration should be  three letters Only!\n")
         else:
-            data.append(reg.upper())
-            takeoffs()
+            data.append(f"EI-{reg.upper()}")
+            toff_lndgs()
             break
 
 def arrival():
     """
     Logging Arrival Airfield as part of Log a Flight journey
-    !!!To be implemented to check if its a format, go back to main menu if hitting 0 
+    Check if its a 4 letters format, go back to main menu if hitting `
+    Input not case sensitive, but uploads as Capital letters 
+    for data quality reason!
     """
     print("")    
     print("Arrival Airfield")
@@ -150,15 +172,27 @@ def arrival():
     print("    \   ")
     print("________")
     print("")
-    arr = input("Arrival Airfield - Enter ICAO code like (EIDW, EIWT, EICK): ")
-    data.append(arr)
-    registration()
+    while True:
+        arr = input("Arrival Airfield - Enter ICAO code like (EIDW, EIWT, EICK): ")
+        if arr == "`":
+            print("")
+            print("Logging process cancelled, back to main menu!\n")
+            menu()
+        if len(arr) != 4 or not arr.isalpha():
+            print("")
+            print("Departure A/P should be four letters Only!\n")
+        else:
+            data.append(arr.upper())
+            registration()
+            break
 
 
 def departure():
     """
     Logging Departure Airfield as part of Log a Flight journey
-    Check if its a 4 letters format, go back to main menu if hitting ` 
+    Check if its a 4 letters format, go back to main menu if hitting `
+    Input not case sensitive, but uploads as Capital letters 
+    for data quality reason!
     """
     print("")    
     print("Departure Airfield")
@@ -184,36 +218,3 @@ def departure():
 
 
 menu()
-"""
-Main Menu
-"""
-option = int(input("Enter your option: "))
-
-while option != 0:
-    if option == 1:
-        #option 1 - instructions
-        instructions()
-    elif option == 2:
-        #option 2 - last Engine maintenance time
-        last_maint()
-    elif option == 3:
-        #option 3 - next Engine maintenance due
-        next_maint()
-    elif option == 4:
-        #option 4 - calculate time left in Engine
-        engine_time_left()
-        break
-    elif option == 5:
-        #option 5 - log a flight
-        departure()
-        break
-    else:
-        print("")
-        print("Invalid option.")
-    print()
-    menu()
-    option = int(input("Entert your option: "))
-
-
-print("Thanks for using this program!")
-
