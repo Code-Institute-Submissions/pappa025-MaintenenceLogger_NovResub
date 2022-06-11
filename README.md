@@ -59,7 +59,11 @@ Also long hours were spent to find bugs and experiment with different solutions 
 
 Deployment and source control was entirely done via GitHub. The repository can be found here:
 
-Repo: https://github.com/pappa025/How-to-do-your-ppl
+Repo: https://github.com/pappa025/MaintenenceLogger
+
+Project has been deployed in Heroku:
+
+Heroku: https://maintenancelog.herokuapp.com/
 
 
 
