@@ -1,6 +1,3 @@
-# Your code goes here.
-# You can delete these comments, but do not change the name of this file
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -31,28 +28,34 @@ def menu():
     print("[3] Option 3 - Next engine maintenence due")
     print("[4] Option 4 - Log a flight")
     print("[0] Exit\n")
-    option = int(input("Enter your option: \n"))
-    while option != 0:
-        if option == 1:
-            # option 1 - instructions
-            instructions()
-        elif option == 2:
-            # option 2 - last Engine maintenance time
-            last_maint()
-        elif option == 3:
-            # option 3 - next Engine maintenance due
-            next_maint()
-        elif option == 4:
-            # option 4 - log a flight
-            departure()
-            break
-        else:
-            print("")
-            print("Invalid option.")
-        print()
+    try:
+        option = int(input("Enter your option: \n"))
+        while option != 0:
+            if option == 1:
+                # option 1 - instructions
+                instructions()
+            elif option == 2:
+                # option 2 - last Engine maintenance time
+                last_maint()
+            elif option == 3:
+                # option 3 - next Engine maintenance due
+                next_maint()
+            elif option == 4:
+                # option 4 - log a flight
+                departure()
+                break
+            else:
+                print("")
+                print("Invalid option.")
+            print()
+            menu()
+            option = int(input("Entert your option: \n"))
+        print("Thanks for using this program!")
+    except ValueError:
+        print("")
+        print("Invalid option.")
+        print("")
         menu()
-        option = int(input("Entert your option: \n"))
-    print("Thanks for using this program!")
 
 
 def instructions():
@@ -63,6 +66,7 @@ def instructions():
     print("You can choose the desired option from the main menu.")
     print("If you choose 0, the program will exit!")
     print("Press ` during Flight Logging to return to Main Menu!")
+
 
 maintenance = []
 maintenance = SHEET.worksheet("maintenance").get_all_values()
@@ -83,6 +87,7 @@ def next_maint():
     """
     print("")
     print(f"Next engine check due at {(maint_row[1])} hr Tacho-time.")
+
 
 data = []
 
@@ -217,7 +222,9 @@ def departure():
     print("________")
     print("")
     while True:
-        dep = input("Departure Airfield - Enter ICAO code like (EIDW, EIWT): \n")
+        dep = input(
+            "Departure Airfield - Enter ICAO code like (EIDW, EIWT): \n"
+            )
         if dep == "`":
             print("")
             print("Logging process cancelled, back to main menu!\n")
@@ -230,5 +237,6 @@ def departure():
             data.append(dep.upper())
             arrival()
             break
+
 
 menu()
